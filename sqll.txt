@@ -1,0 +1,306 @@
+select firstname,netsalary from associate,salary where associate.associateid=salary.associateid;
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+select firstname,accountnumber from associate,bankdetails where associate.associateid=bankdetails.associateid;
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+select max (basicsalary) from salary ;
+select * from salary;
+select basicsalary from salary ;
+-----------------------------------------------------------------------
+select min(basicsalary) from salary;
+
+select firstname from associate where firstname like 'R%';
+
+
+select * from ASSOCIATE where firstname like '%1';
+
+select * 
+  from Associate
+    where yearlyinvestmentunder80c <90000 and yearlyinvestmentunder80c >70000;
+    
+    select * from ASSOCIATE;
+    
+      select count(*)
+    from   Associate;
+    
+    select abs(-15)
+  from dual;
+  
+  select a.associateId,a.firstName,a.lastName,s.basicSalary,s.netSalary,b.bankName
+  from  Associate a , Salary s,BankDetails b;
+    
+  select avg(hra) from salary;  
+  
+  select associate.associateId,associate.firstName,associate.lastName,salary.basicSalary,salary.netSalary
+  from  Associate,Salary  ;
+  
+  select * from bankdetails where ASSOCIATEID=101;
+  
+select hra from salary order by basicsalary desc;
+
+SELECT MAX(hra)FROM salary WHERE
+       hra<(SELECT MAX(hra)from salary); 
+       
+       select * from salary;
+       
+           SELECT MAX(hra)FROM salary WHERE
+       hra<(SELECT MAX(hra)from salary) ;      
+       
+set serveroutput on;
+begin 
+DBMS_OUTPUT.PUT_LINE('hi');
+END;
+
+declare
+vcname varchar2(20)not null:='Raj';
+id number;
+begin
+vcname:='Raj';
+id:='100';
+DBMS_OUTPUT.PUT_LINE(vcname||'  '||id);
+end;
+
+declare
+aid number;
+fname varchar2(20);
+lname varchar(20);
+begin
+select associateid,firstname,lastname
+into aid,fname,lname
+from associate
+where associateid=&id;
+DBMS_OUTPUT.PUT_LINE(aid||'  '||fname||' '||lname);
+end;
+  
+  declare
+aid associate.associateid%type;
+fname associate.firstname%type;
+lname associate.lastname%type;
+begin
+select associateid,firstname,lastname
+into aid,fname,lname
+from associate
+where associateid=&id;
+DBMS_OUTPUT.PUT_LINE(aid||'  '||fname||' '||lname);
+end;
+
+
+ declare
+associaterow associate%rowtype;
+begin
+select * 
+into associaterow
+from associate
+where associateid=&id;
+DBMS_OUTPUT.PUT_LINE(associaterow.associateid||' '||associaterow.firstname);
+end;
+  
+  declare
+  cursor associatecursor is select * from associate ;
+  associaterow associate%rowtype;
+  begin
+  open associatecursor;
+  LOOP
+  fetch  associatecursor into associaterow;
+  DBMS_OUTPUT.PUT_LINE(associaterow.associateid||' '||associaterow.firstname);
+  exit when associatecursor %NOTFOUND;
+  end loop;
+  close associatecursor;
+  end;
+  
+   select staff_name,design_code 
+  from staff_master
+  
+  where STAFF_SAL>20000 and STAFF_SAL<90000; 
+  select staff_code,deptcode,staff_name 
+  from staff_master
+  where ;
+  
+  1.1
+ Q.1
+  select staff_name,design_code 
+  from staff_master
+ where STAFF_SAL>20000 and STAFF_SAL<90000
+  and HIREDATE> '01-june-2019';
+ 
+  
+ 
+  
+  q5
+  
+    select staff_name from staff_master where staff_name like '%/_%' escape '/';
+  
+  q3  
+SELECT  staff_name
+FROM    staff_master
+WHERE   MGR_CODE is null;
+
+q4
+select * from book_master
+where book_pub_year>'2004' and book_pub_year<'2008' ;
+
+select * from book_master
+where book_pub_year between '2004' and '2008'  and book_name like '%&%';
+
+2.1
+select staff_name,staff_sal
+from staff_master;
+
+2.2
+q1 ...
+select max(staff_sal)as maximum ,min(staff_sal) as minimum,
+avg(staff_sal) as average,sum(staff_sal) as total
+from staff_master;
+
+select dept_code,(mgr_code)
+from staff_master;
+
+select staff_name,dept_code,dept_name
+from department_master,staff_master
+where department_master.dept_code=staff_master.dept_code
+and staff_sal>'20000';
+
+select staff_name,dept_code,dept_name
+from department_master as dm ,staff_master as sm
+where dm.dept_code=sm.dept_code
+and staff_sal>'20000';
+
+//3.1
+1
+select staff_name,staff_code,staff_sal
+from staff_master
+where staff_sal<(select avg(staff_sal) from staff_master);
+
+
+select count(empno) as total_no_of_mgr ,employee.DEPTNO
+from employee
+group by deptno;
+
+
+SELECT hiredate FROM employee WHERE TO_CHAR(hiredate,'mon')='june';
+
+////3.1-2
+select staff_code as staff#,staff_name as staff,dept_name as mgr#,mgr_code as manager
+from staff_master,department_master
+where staff_master.dept_code=department_master.dept_code;
+ 
+ 3.1-13
+select count(empno)as no_of_emp,deptno from employee group by deptno;
+
+1.1     
+select staff_name,LPAD(staff_sal,15,'$')from staff_master ;
+
+select hiredate from STAFF_MASTER where hiredate>sysdate-90;
+
+9.Display the Student Code, Student Name, and Department Name for that department in
+which there are maximum number of student  studying.
+ 
+select student_code,student_name,dept_name
+from student_master,department_master
+where student_master.dept_code=department_master.dept_code
+
+group by dept_code;
+ 
+
+
+select Instr('mississipi','i',-2) from dual; 
+
+3.1
+7.	Display Author Name, Book Name for those authors who wrote more than one book.
+
+3.	Create a query that will display Student Code, Student Name, Book Code, 
+    and Book Name for all students whose expected book return date is today.
+ 
+ select student_code,book_code,book_name 
+ from book_transactions,book_master
+ where book_transactions.book_code=book_master.book_code
+ and book_expected_return_date=sysdate;
+ 
+  select student_code,book_code,book_name 
+ from book_transactions,book_master
+ where 
+  book_expected_return_date=sysdate;
+  
+  
+  declare
+  cursor associatecursor is select * from associate;
+  associateRow associate%rowtype;
+  begin
+  open associatecursor;
+  loop
+  fetch associatecursor into associaterow;
+  dbms_output.put_line(associateRow.associateId||associateRow.firstname );
+  exit when associatecursor%notfound;
+  end loop;
+  close associatecursor;
+  end;
+  
+  set serveroutput on;
+  
+  declare
+  aid associate.associateid%type;
+  fname associate.firstname%type;
+  lname associate.lastname%type;
+  begin
+  select associateid,firstname,lastname
+  into aid,fname,lname
+  from associate
+  where associateid=&aid;
+  dbms_output.put_line(aid||''||fname );
+  exception
+  when no_data_found then
+  dbms_output.put_line('no emp found' );
+  end;
+  
+  create or replace PROCEDURE  sp_FindAssociateDetails
+  as
+  declare
+  cursor associatecursor is select * from associate;
+  where yearlyinvestmentunder80c>=&yearlyinvestmentunder80c;
+  associateRow associate%rowtype;
+  no_records_found exception;
+  begin
+  open associatecursor;
+  fetch associatecursor into associaterow;
+  if associatecursor%rowcount>0 then 
+  loop
+  fetch associatecursor into associaterow;
+  dbms_output.put_line(associateRow.associateId||associateRow.firstname );
+  exit
+  when associatecursor%notfound;
+  end loop;
+  else
+  raise no_records_found;
+  end if
+  close associatecursor;
+  exception
+  when no_records_found then 
+  dbms_output.put_line('no details found');
+  end;
+  
+  create or replace function addnums(n1 number,n2 number)
+  return number;
+  as 
+  begin
+  return n1+n2;
+  end addnums;
+  
+  declare
+  ans number;
+  begin
+  ans:=addnums(10,20);
+  DBMS_OUTPUT.PUT_LINE('ans'||ans);
+  end;
+
+execute addnums;
+
+create table insertcat(
+tablename varchar(50),
+insertTimeStamp timestamp
+)
+create or replace trigger insertasso after 
+insert on associate for each row 
+begin
+insert into insertcat values('associate',sysdate);
+end;
+
+SELECT * FROM insertcat;
